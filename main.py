@@ -1,5 +1,8 @@
 import numpy as np
-
+import time
+import random
+import math
+import matplotlib.pyplot as plt
 #Files to read from
 F1 = "file1.txt"
 F2 = "file2.txt"
@@ -30,6 +33,22 @@ def compare_lists(list1,list2):
 
     return largest_substring
 
+def run(size):
+    string1,string2 = "",""
+    for i in range(size):
+            string1 = string1 + str(random.randint(1,10))
+    for i in range(size):
+            string2 = string2 + str(random.randint(1,10))
+
+    start =  time.time()
+    str1_list = get_substring_list(string1)
+    str2_list = get_substring_list(string2)
+    largest_substring = compare_lists(str1_list,str2_list)
+    end =  time.time()
+    return (end-start)
+
+
+
 
 if __name__ == '__main__':
     # read files
@@ -50,6 +69,7 @@ if __name__ == '__main__':
         file2 = file1
 
     #find the largest string
+    start =  time.time()
     str1_list = get_substring_list(file1)
     str2_list = get_substring_list(file2)
 
@@ -58,4 +78,18 @@ if __name__ == '__main__':
     print "str2 list: ",len(str2_list)
 
     largest_substring = compare_lists(str1_list,str2_list)
+    end =  time.time()
+
+    print (end - start)
+
     print "\nLargest Substring: ",largest_substring
+    x = [int(10),int(20),int(30),int(40),int(50),int(50),int(60),int(70),int(80),int(90),int(100)]
+    y = []
+    for xval in x:
+        y.append(run(xval))
+
+    plt.plot(x,y)
+    plt.title("Run Time vs String Size")
+    plt.xlabel("String size")
+    plt.ylabel("Run Time (seconds)")
+    plt.show()
